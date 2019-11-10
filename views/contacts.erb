@@ -1,0 +1,31 @@
+<% if params[:contacts] == "friends"  %>
+  <h1>I get by with the help of my friends:</h1>
+<% elsif params[:contacts] == "family" %>
+  <h1>Life is hard. But family is harder.</h1>
+<% else %>
+  <h1>Work is important but fun is essential.</h1>
+<% end %>
+
+<a href="/add/<%= params[:contacts] %>">
+  <h4>Add another <%= params[:contacts] %> contact.</h4>
+</a>
+
+<ul>
+  <% @contacts.each do |name, details| %>
+  <li>
+    <%= name.to_s.capitalize %>
+    <form style='display: inline;' method="post" action="/delete/<%= params[:contacts] %>/<%= name %>">
+      <button type="submit">Delete</button>
+    </form>
+
+    <ul>
+      <li>Email: <%= details[:email] %></li>
+      <li>Phone: <%= details[:phone] %></li>
+    </ul>
+  </li>
+  <% end %>
+</ul>
+
+<a href="/">
+  <p>Go to the main list!</p>
+</a>
